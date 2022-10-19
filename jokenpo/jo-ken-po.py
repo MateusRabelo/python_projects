@@ -174,8 +174,4 @@ scissors.grid(column = 2, row = 1)
 
 window.mainloop()
     
-    
-def main():
-    jokenpo()
-
-#main()
+#jokenpo()
