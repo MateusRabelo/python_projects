@@ -4,6 +4,9 @@ from tkinter import ttk
 # import Pillow to image manipulation
 from PIL import Image, ImageTk
 
+# import tandom to pseudo-randomize the pc choose
+import random
+
 
 co0 = "#FFFFFF"  # white
 co1 = "#333333"  # black
@@ -35,8 +38,8 @@ style.theme_use('clam')
 
 # configuring frame_up (user's Labels)
 # user label (name and position)
-user_play = Label(frame_up, text = 'You', height=1, anchor='center', font='Ivy 10 bold', bg=co1, fg=co0)
-user_play.place(x = 25, y = 70)
+user_play_label = Label(frame_up, text = 'You', height=1, anchor='center', font='Ivy 10 bold', bg=co1, fg=co0)
+user_play_label.place(x = 25, y = 70)
 # indicator of win (user side)
 user_win_line = Label(frame_up, text = '', height=10, anchor='center', font='Ivy 10 bold', bg=co0, fg=co0)
 user_win_line.place(x = 0, y = 0)
@@ -49,8 +52,8 @@ division = Label(frame_up, text = ':', height=1, anchor='center', font='Ivy 30 b
 division.place(x = 120, y = 20)
 
 # pc label (name and position)
-pc_play = Label(frame_up, text = 'Pc', height=1, anchor='center', font='Ivy 10 bold', bg=co1, fg=co0)
-pc_play.place(x = 205, y = 70)
+pc_play_label = Label(frame_up, text = 'Pc', height=1, anchor='center', font='Ivy 10 bold', bg=co1, fg=co0)
+pc_play_label.place(x = 205, y = 70)
 # indicator of win (pc side)
 pc_win_line = Label(frame_up, text = '', height=10, anchor='center', font='Ivy 10 bold', bg=co0, fg=co0)
 pc_win_line.place(x = 255, y = 0)
@@ -63,47 +66,82 @@ draw_line = Label(frame_up, text = '', width=255, anchor='center', font='Ivy 1 b
 draw_line.place(x = 0, y = 95)
 
 
-# configuring frame_down
-# added an icon to rock
-rock_icon = Image.open("jokenpo/icons/rock.png")
-# resizing the icon
-rock_icon = rock_icon.resize((50, 50))
-# necessary to run the Image.open()
-rock_icon = ImageTk.PhotoImage(rock_icon)
+global user_play, pc_play, rounds, user_score, pc_score
 
-# added a button to rock, and all the requisites
-rock_button_icon = Button(frame_down, width=50, image=rock_icon, compound=CENTER, bg=co0, fg=co0, font=('Ivy 10 bold'), relief=FLAT) #relief <style of button>
-# position to button
-rock_button_icon.place(x=15, y=60)
+user_score = 0
+pc_score = 0
+rounds = 5
 
 
+# main function (lógic)
+def play(i):
+    
+    global rounds, user_score, pc_score
+    
+    if rounds > 0:
+        
+        print(rounds)
+        pc_list = ['Rock', 'Paper', 'Scissors']
+        pc_play = random.choice(pc_list)
+        user_play = i
+        
+        print(user_play, pc_play)
+        
+    else:
+        
+        end_game()
 
-# added an icon to paper
-paper_icon = Image.open("jokenpo/icons/paper.png")
-# resizing the icon
-paper_icon = paper_icon.resize((50, 50))
-# requisite of Image.open()
-paper_icon = ImageTk.PhotoImage(paper_icon)
 
-# added a button to paper, and all the requisites
-paper_button_icon = Button(frame_down, width=50, image=paper_icon, compound=CENTER, bg=co0, fg=co0, font=('Ivy 10 bold'), relief=FLAT) #relief <style of button>
-# position to button
-paper_button_icon.place(x=100, y=60)
+# start game function
+def start_game():
+    
+    global rock_icon, paper_icon, scissors_icon, rock_button_icon, paper_button_icon, scissors_button_icon
+    
+    # configuring frame_down
+    # added an icon to rock
+    rock_icon = Image.open("jokenpo/icons/rock.png")
+    # resizing the icon
+    rock_icon = rock_icon.resize((50, 50))
+    # necessary to run the Image.open()
+    rock_icon = ImageTk.PhotoImage(rock_icon)
+
+    # added a button to rock, and all the requisites
+    rock_button_icon = Button(frame_down, width=50, command = lambda: play('Rock'), image=rock_icon, compound=CENTER, bg=co0, fg=co0, font=('Ivy 10 bold'), relief=FLAT) #relief <style of button>
+    # position to button
+    rock_button_icon.place(x=15, y=60)
 
 
 
-# added scissors icon
-scissors_icon = Image.open("jokenpo/icons/scissors.png")
-# resizing the icon
-scissors_icon = scissors_icon.resize((50, 50))
-# necessary to run Image.open()
-scissors_icon = ImageTk.PhotoImage(scissors_icon)
+    # added an icon to paper
+    paper_icon = Image.open("jokenpo/icons/paper.png")
+    # resizing the icon
+    paper_icon = paper_icon.resize((50, 50))
+    # requisite of Image.open()
+    paper_icon = ImageTk.PhotoImage(paper_icon)
 
-# added a button to scissors, and all the requisites
-scissors_button_icon = Button(frame_down, width=50, image=scissors_icon, compound=CENTER, bg=co0, fg=co0, font=('Ivy 10 bold'), relief=FLAT) #relief <style of button>
-# position to button
-scissors_button_icon.place(x=185, y=60)
+    # added a button to paper, and all the requisites
+    paper_button_icon = Button(frame_down, width=50, command = lambda: play('Paper'), image=paper_icon, compound=CENTER, bg=co0, fg=co0, font=('Ivy 10 bold'), relief=FLAT) #relief <style of button>
+    # position to button
+    paper_button_icon.place(x=100, y=60)
 
+
+
+    # added scissors icon
+    scissors_icon = Image.open("jokenpo/icons/scissors.png")
+    # resizing the icon
+    scissors_icon = scissors_icon.resize((50, 50))
+    # necessary to run Image.open()
+    scissors_icon = ImageTk.PhotoImage(scissors_icon)
+
+    # added a button to scissors, and all the requisites
+    scissors_button_icon = Button(frame_down, width=50, command = lambda: play('Scissors'), image=scissors_icon, compound=CENTER, bg=co0, fg=co0, font=('Ivy 10 bold'), relief=FLAT) #relief <style of button>
+    # position to button
+    scissors_button_icon.place(x=185, y=60)
+
+
+# end game function
+def end_game():
+    pass
 
 
 # added play icon
@@ -114,10 +152,13 @@ play_icon = play_icon.resize((20, 30))
 play_icon = ImageTk.PhotoImage(play_icon)
 
 # added a button to play, and all the requisites
-play_button_icon = Button(frame_down, width=50, image=play_icon, compound=CENTER, bg=co0, fg=co0, font=('Ivy 10 bold'), relief=FLAT) #relief <style of button>
+play_button_icon = Button(frame_down,command=start_game, width=50, image=play_icon, compound=CENTER, bg=co0, fg=co0, font=('Ivy 10 bold'), relief=FLAT) #relief <style of button>
 # position to play button
 play_button_icon.place(x=100, y=150)
 
+# if you want to apply just a simple "play"
+#paly_button = Button(frame_down, width=30, text='Jogar', bg=fundo, fg=co0, font=('Ivy 10 bold'), anchor=CENTER, relief=RAISED)
+#paly_button.place(x=5, y=151)
 
 
 window.mainloop()
