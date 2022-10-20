@@ -65,15 +65,17 @@ def jokenpo():
             
             
 def user_rock():
-    clear = Label(window, text='                                 ', background='gray')
-    clear.grid(column = 1, row = 3)
+    clear_result = Label(window, text='                                 \n',)
+    clear_result.grid(column = 1, row = 3)
+    
+    clear_pc_play = Label(window, text='                                 \n',)
+    clear_pc_play.grid(column = 1, row = 2)
     
     pc_list = ["Rock","Paper","Scissors"]
     pc_play = random.choice(pc_list) 
     
     if pc_play == "Rock":
-        clear = Label(window, text='                                 ')
-        clear.grid(column = 1, row = 3)
+
         pc_play_string = Label(window, text="'Pc play: {}'".format(pc_play))
         pc_play_string.grid(column = 1, row = 2)
         
@@ -81,8 +83,7 @@ def user_rock():
         result.grid(column=1, row = 3)
         
     elif pc_play == "Paper":
-        clear = Label(window, text='                                 ')
-        clear.grid(column = 1, row = 3)
+
         pc_play_string = Label(window, text="'Pc play: {}'".format(pc_play))
         pc_play_string.grid(column = 1, row = 2)
         
@@ -90,8 +91,7 @@ def user_rock():
         result.grid(column=1, row = 3)
         
     else:
-        clear = Label(window, text='                                 ')
-        clear.grid(column = 1, row = 3)
+
         pc_play_string = Label(window, text="'Pc play: {}'".format(pc_play))
         pc_play_string.grid(column = 1, row = 2)
         
@@ -102,6 +102,12 @@ def user_rock():
         
         
 def user_paper():
+    clear_result = Label(window, text='                                 \n',)
+    clear_result.grid(column = 1, row = 3)
+    
+    clear_pc_play = Label(window, text='                                 \n',)
+    clear_pc_play.grid(column = 1, row = 2)
+    
     pc_list = ["Rock","Paper","Scissors"]
     pc_play = random.choice(pc_list) 
     
@@ -129,6 +135,12 @@ def user_paper():
         
         
 def user_scissors():
+    clear_result = Label(window, text='                                 \n',)
+    clear_result.grid(column = 1, row = 3)
+    
+    clear_pc_play = Label(window, text='                                 \n',)
+    clear_pc_play.grid(column = 1, row = 2)
+    
     pc_list = ["Rock","Paper","Scissors"]
     pc_play = random.choice(pc_list) 
     
@@ -136,7 +148,7 @@ def user_scissors():
         pc_play_string = Label(window, text="'Pc play: {}'".format(pc_play))
         pc_play_string.grid(column = 1, row = 2)
         
-        result = Label(window, text="You Lost! :/", background='regit d')
+        result = Label(window, text="You Lost! :/", background='red')
         result.grid(column=1, row = 3)
         
     elif pc_play == "Paper":
@@ -159,18 +171,18 @@ window = Tk()
 window.title("Jokenpo")
 #window.geometry("400x400")
 
-introduction = Label(window, text="Make your play\nChoose between 'Rock', 'Paper' or 'Scissors", justify='center')
-introduction.grid(column = 1, row = 0)
+introduction = Label(window, text="Make your play\nChoose between 'Rock', 'Paper' or 'Scissors")
+introduction.grid(column = 1, row = 4)
 
 
-rock = Button(window, text="Rock", command=user_rock)
-rock.grid(column = 0, row = 1)
+rock = Button(window, text="Rock", command=user_rock)#, padx=5, pady=5, justify=CENTER)
+rock.grid(column = 0, row = 6)
 
-paper = Button(window, text="Paper", command=user_paper)
-paper.grid(column = 1, row = 1)
+paper = Button(window, text="Paper", command=user_paper)#, padx=5, pady=5, justify=CENTER)
+paper.grid(column = 1, row = 6)
 
-scissors = Button(window, text="Scissors", command=user_scissors)
-scissors.grid(column = 2, row = 1)
+scissors = Button(window, text="Scissors", command=user_scissors)#, padx=5, pady=5, justify=CENTER)
+scissors.grid(column = 2, row = 6)
 
 window.mainloop()
     
