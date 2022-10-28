@@ -38,9 +38,7 @@ class PassGenerator:
             if event == 'Gerar Senha':
                 newPass = self.generatePass(values)
                 print(newPass)
-                
-            if layout == layout [sg.Combo(values=['33'])]:
-                print('Calma meu patrão!')
+                self.savePass(newPass, values)
                 
                 
     def generatePass(self, values):
@@ -51,8 +49,11 @@ class PassGenerator:
         newPass2 = ''.join(chars)
         return newPass2
                 
-    def savePass(self):
-        pass
+    def savePass(self, newPass, values):
+        with open('password_gen\passwords.txt', 'a') as file:
+            file.write(f"Site/Software: {values['site']}\nEmail/Usuário: {values['usuario']}\nSenha: {newPass}{os.linesep}")
+        
+        print('Senha salva em "passwords.txt"')
     
 gen = PassGenerator()
 gen.Initialize()
