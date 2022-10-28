@@ -10,10 +10,10 @@ class PassGenerator:
         sg.theme('BlueMono')
         layout = [
             
-                [sg.Text('Site/Software', size=(10, 1)),
+                [sg.Text('Site/Software', size=(12, 1)),
                  sg.Input(key='site', size=(20, 1))],
                     
-                [sg.Text('Email/Usuário', size=(10, 1)),
+                [sg.Text('Email/Usuário', size=(12, 1)),
                  sg.Input(key='usuario', size=(20,1))],
                 
                 [sg.Text('Quantidade de caracteres'),
