@@ -62,8 +62,11 @@ pc_play_score = Label(frame_up, text = '0', height=1, anchor='center', font='Ivy
 pc_play_score.place(x = 175, y = 20)
 
 # line of draw
-draw_line = Label(frame_up, text = '', width=255, anchor='center', font='Ivy 1 bold', bg=co5, fg=co0)
+draw_line = Label(frame_up, text = '', width=255, anchor='center', font='Ivy 1 bold', bg=co0, fg=co0)
 draw_line.place(x = 0, y = 95)
+
+pc_playing = Label(frame_down, text = '', height=1, anchor='center', font='Ivy 10 bold', bg=co0, fg=co1)
+pc_playing.place(x = 180, y = 10)
 
 
 global user_play, pc_play, rounds, user_score, pc_score
@@ -85,17 +88,108 @@ def play(i):
         pc_play = random.choice(pc_list)
         user_play = i
         
+        pc_playing['text'] = pc_play
+        pc_playing['fg'] = co1
+        
         print(user_play, pc_play)
+        
+        if user_play == 'Rock' and pc_play == 'Rock':
+            print('Draw')
+            
+            user_win_line['bg'] = co0
+            pc_win_line['bg'] = co0
+            draw_line['bg'] = co3
+                        
+        elif user_play == 'Paper' and pc_play == 'Paper':
+            print('Draw')
+            
+            user_win_line['bg'] = co0
+            pc_win_line['bg'] = co0
+            draw_line['bg'] = co3
+                        
+        elif user_play == 'Scissors' and pc_play == 'Scissors':
+            print('Draw')
+            
+            user_win_line['bg'] = co0
+            pc_win_line['bg'] = co0
+            draw_line['bg'] = co3
+                        
+        elif user_play == 'Rock' and pc_play == 'Scissors':
+            print('Win!')
+            
+            user_win_line['bg'] = co4
+            pc_win_line['bg'] = co0
+            draw_line['bg'] = co0
+            
+            user_score += 10
+            
+        elif user_play == 'Scissors' and pc_play == 'Paper':
+            print('Win!')
+            
+            user_win_line['bg'] = co4
+            pc_win_line['bg'] = co0
+            draw_line['bg'] = co0
+            
+            user_score += 10
+            
+        elif user_play == 'Paper' and pc_play == 'Rock':
+            print('Win!')
+            
+            user_win_line['bg'] = co4
+            pc_win_line['bg'] = co0
+            draw_line['bg'] = co0
+            
+            user_score += 10
+            
+        elif user_play == 'Rock' and pc_play == 'Paper':
+            print('Lose!')
+            
+            user_win_line['bg'] = co0
+            pc_win_line['bg'] = co5
+            draw_line['bg'] = co0
+            
+            pc_score += 10
+            
+        elif user_play == 'Scissors' and pc_play == 'Rock':
+            print('Lose!')
+            
+            user_win_line['bg'] = co0
+            pc_win_line['bg'] = co5
+            draw_line['bg'] = co0
+            
+            pc_score += 10
+            
+        elif user_play == 'Paper' and pc_play == 'Scissors':
+            print('Lose!')
+            
+            user_win_line['bg'] = co0
+            pc_win_line['bg'] = co5
+            draw_line['bg'] = co0
+            
+            pc_score += 10
+        
+        # updating values to score
+        user_play_score['text'] = user_score
+        pc_play_score['text'] = pc_score
+        
+        # updating rounds
+        rounds -= 1
         
     else:
         
+        user_play_score['text'] = user_score
+        pc_play_score['text'] = pc_score
+        
+        # calling the end function
         end_game()
 
 
 # start game function
 def start_game():
     
-    global rock_icon, paper_icon, scissors_icon, rock_button_icon, paper_button_icon, scissors_button_icon
+    global rock_icon, paper_icon, scissors_icon, rock_button_icon, paper_button_icon, scissors_button_icon, clear_button
+    
+    play_button_icon.destroy()
     
     # configuring frame_down
     # added an icon to rock
@@ -141,7 +235,54 @@ def start_game():
 
 # end game function
 def end_game():
-    pass
+    
+    global rounds, user_score, pc_score
+    
+    # restarting the game
+    user_play = 0
+    pc_score = 0
+    rounds = 5
+    
+    # removing the play buttons
+    rock_button_icon.destroy()
+    paper_button_icon.destroy()
+    scissors_button_icon.destroy()
+    
+    
+    # 
+    user_score_verification = 0#int(user_play_score['text'])
+    pc_score_verification = 0#int(pc_play_score['text'])
+    
+    
+    
+    if user_score_verification > pc_score_verification:
+        
+        winner_label = Label(frame_down, text = 'CONGRATULATIONS\n YOU WIN!!!', height=2, anchor='center', font='Ivy 12 bold', bg=co0, fg=co4)
+        winner_label.place(x = 40, y = 70)
+        
+    elif user_score_verification < pc_score_verification:
+        
+        winner_label = Label(frame_down, text = 'You lose :/', height=1, anchor='center', font='Ivy 12 bold', bg=co0, fg=co5)
+        winner_label.place(x = 10, y = 70)
+        
+    else:
+        
+        winner_label = Label(frame_down, text = 'We have a draw!!', height=1, anchor='center', font='Ivy 12 bold', bg=co0, fg=co1)
+        winner_label.place(x = 10, y = 70)
+
+
+    #winner_label.destroy()
+    
+    
+    def play_again():
+        
+        user_play_score['text'] = 0
+        pc_play_score['text'] = 0
+        winner_label.destroy()
+        
+        play_again_button_icon = Button(frame_down,command=play_again, width=50, image=play_icon, compound=CENTER, bg=co0, fg=co0, font=('Ivy 10 bold'), relief=FLAT) #relief <style of button>
+        play_again_button_icon.place(x=100, y=150)
+    
 
 
 # added play icon
